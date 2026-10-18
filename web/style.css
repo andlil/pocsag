@@ -1,0 +1,86 @@
+:root {
+  --bg: #0f1215;
+  --panel: #171b20;
+  --line: #2a3038;
+  --text: #d8dee6;
+  --muted: #8a94a1;
+  --lcd: #0b1a10;
+  --lcd-text: #7dff9a;
+  --accent: #3fb6ff;
+  --open: #4be37a;
+  --warn: #ffb347;
+  --bad: #ff6b6b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+/* Elements toggled with el.hidden must stay hidden even when a class sets display. */
+[hidden] { display: none !important; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+main { max-width: 900px; margin: 0 auto; padding: 16px; }
+header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+h1 { font-size: 20px; margin: 0; letter-spacing: .02em; }
+h2 { font-size: 16px; margin: 0; color: var(--muted); font-weight: 600; }
+.pill { font-size: 12px; padding: 3px 10px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
+.pill.ok { color: var(--open); border-color: color-mix(in srgb, var(--open) 50%, transparent); }
+.pill.bad { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 50%, transparent); }
+
+.display {
+  background: var(--lcd); border: 1px solid #1f3a26; border-radius: 10px;
+  padding: 16px 18px; color: var(--lcd-text);
+  font-family: ui-monospace, "DejaVu Sans Mono", Menlo, monospace;
+  box-shadow: inset 0 0 30px rgba(0,0,0,.6);
+}
+.display .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.state { font-size: 14px; letter-spacing: .15em; }
+.state.rx { color: #fff; text-shadow: 0 0 8px var(--lcd-text); }
+.device { font-size: 12px; opacity: .6; }
+.freq { font-size: clamp(28px, 8vw, 44px); font-weight: 700; margin: 6px 0 2px; }
+.small-lcd { font-size: 14px; opacity: .85; }
+.meter { height: 8px; background: rgba(125,255,154,.12); border-radius: 4px; margin-top: 10px; overflow: hidden; }
+#meterbar { height: 100%; width: 0; background: var(--lcd-text); transition: width .3s; }
+.stats { font-size: 12px; opacity: .6; margin-top: 8px; }
+.error { margin-top: 10px; color: var(--bad); font-family: system-ui, sans-serif; font-size: 14px; }
+
+.settings { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin: 14px 0 22px; }
+.freqform { display: flex; align-items: center; gap: 8px; flex: 1 1 320px; }
+.freqform label { color: var(--muted); }
+.freqform input { flex: 1; min-width: 0; max-width: 180px; }
+.unit { color: var(--muted); }
+.charset { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+input, select, button {
+  background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  border-radius: 8px; padding: 9px 12px; font: inherit;
+}
+input:focus, select:focus { outline: none; border-color: var(--accent); }
+button { cursor: pointer; padding: 9px 16px; }
+button:hover { border-color: var(--accent); }
+
+.msghead { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+.msghead input { flex: 0 1 260px; min-width: 0; }
+.count { font-weight: 400; font-size: 13px; }
+.list { display: flex; flex-direction: column; gap: 8px; }
+.msg {
+  background: var(--panel); border: 1px solid var(--line); border-radius: 8px;
+  padding: 9px 12px; cursor: pointer;
+}
+.msg.new { animation: flash 2.5s ease-out; }
+@keyframes flash { from { border-color: var(--open); background: color-mix(in srgb, var(--open) 12%, var(--panel)); } }
+.meta { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; color: var(--muted); }
+.meta .ric { color: var(--accent); font-family: ui-monospace, "DejaVu Sans Mono", Menlo, monospace; font-weight: 600; }
+.meta .warn { color: var(--warn); }
+.text { margin-top: 3px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 16px; }
+.text.tone { color: var(--muted); font-style: italic; }
+.text.numeric { font-family: ui-monospace, "DejaVu Sans Mono", Menlo, monospace; }
+.details { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 13px; color: var(--muted); }
+.details div { overflow-wrap: anywhere; white-space: pre-wrap; }
+.details b { color: var(--text); font-weight: 600; }
+.empty { color: var(--muted); }
+
+.toast {
+  position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%);
+  background: #2b1a1a; color: #ffd0d0; border: 1px solid var(--bad);
+  padding: 10px 16px; border-radius: 8px; max-width: calc(100% - 32px);
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POCSAG</title>
+<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+<main>
+  <header>
+    <h1>POCSAG</h1>
+    <span id="conn" class="pill">Connecting…</span>
+  </header>
+
+  <section class="display" aria-live="polite">
+    <div class="row">
+      <span id="state" class="state">—</span>
+      <span id="device" class="device"></span>
+    </div>
+    <div id="freq" class="freq">&nbsp;</div>
+    <div class="row">
+      <span id="level" class="small-lcd">&nbsp;</span>
+      <span id="offset" class="small-lcd"></span>
+    </div>
+    <div class="meter"><div id="meterbar"></div></div>
+    <div id="stats" class="stats"></div>
+    <div id="error" class="error" hidden></div>
+  </section>
+
+  <section class="settings">
+    <form id="freqform" class="freqform">
+      <label for="freqinput">Frequency</label>
+      <input id="freqinput" name="freq" required inputmode="decimal" placeholder="MHz, e.g. 169.8000" autocomplete="off">
+      <span class="unit">MHz</span>
+      <button type="submit">Set</button>
+    </form>
+    <label class="charset">Characters
+      <select id="charset">
+        <option value="sv">Swedish (ÄÖÅ)</option>
+        <option value="ascii">ASCII</option>
+      </select>
+    </label>
+  </section>
+
+  <section class="messages">
+    <div class="msghead">
+      <h2>Messages <span id="count" class="count"></span></h2>
+      <input id="search" type="search" placeholder="Filter by text or RIC" aria-label="Filter messages">
+    </div>
+    <div id="list" class="list"></div>
+    <p id="empty" class="empty">No messages yet.</p>
+  </section>
+</main>
+<div id="toast" class="toast" hidden></div>
+<script src="static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+services:
+  pocsag:
+    # Pre-built image from GitHub Actions; "docker compose pull" fetches it.
+    # "docker compose up -d --build" builds locally from this directory instead.
+    image: ghcr.io/andlil/pocsag:latest
+    build: .
+    container_name: pocsag
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    # USB access to the SDR, including when it is unplugged and plugged back in.
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - ./data:/data
+    device_cgroup_rules:
+      - "c 189:* rmw"
+    environment:
+      # "" = first SDR found, or e.g. driver=rtlsdr / driver=airspyhf / driver=sim.
+      # With several receivers of the same type, pick one by serial number:
+      #   driver=rtlsdr,serial=00000001
+      # List connected receivers and their serials with:
+      #   docker compose stop && docker compose run --rm pocsag python3 -m app.devices
+      SDR_DEVICE: ""
+      # "auto" (AGC) or a fixed gain in dB, e.g. 35
+      SDR_GAIN: "auto"
+      # Frequency correction for the RTL-SDR in ppm
+      SDR_PPM: "0"
